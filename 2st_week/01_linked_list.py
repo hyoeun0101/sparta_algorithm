@@ -18,20 +18,41 @@ class LinkedList:
 
     def print_all(self):
         cur = self.head
-        while cur.next != None:
+        while cur != None:
             print(cur.data)
             cur = cur.next
-        print(cur.data)
 
-# node= Node(3)
-# print(node.data)
+    def get_node(self, index):
+        node = self.head
+        for _ in range(index):
+            node = node.next
+        print(node)
+        return node
 
+    def add_node(self, index, value):
+        # cur = self.head
+        # for _ in range(index):
+        #     cur = cur.next
+        new_node = Node(value)
+        if index==0:
+            new_node.next = self.head
+            self.head = new_node
 
-# first_node =Node(5)
-# second_node=Node(12)
-# first_node.next = second_node
+        node = self.get_node(index-1)
+        new_node.next = node.next
+        node.next = new_node
+    
+    def delete_node(self, index):
+        if index == 0:
+            node = self.head
+            self.head = node.next
+        node= self.get_node(index-1)
+        node.next =node.next.next
 
-liked_list = LinkedList(5)
-liked_list.append(12)
-liked_list.append(8)
-liked_list.print_all()
+linked_list = LinkedList(1)
+linked_list.append(2)
+linked_list.append(4)
+
+linked_list.add_node(2, 3)#index번째에 value추가
+linked_list.delete_node(2)
+linked_list.print_all()
